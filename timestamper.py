@@ -22,9 +22,9 @@ images = glob.glob("input/*")
 
 for image in images:
     exif_img = Image.open(image)
-    exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img._getexif().items() if k in ExifTags.TAGS } 
-    datetime = exif_data['DateTimeOriginal']
-    print(datetime)
+    exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img.getexif().items() if k in ExifTags.TAGS }
+    datetime = exif_data['DateTime']
+    
 
     img = cv.imread(image)
     img_name = image[len("input/") :]
