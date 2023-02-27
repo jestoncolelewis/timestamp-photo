@@ -38,8 +38,9 @@ def process():
         exif_img = Image.open(image)
         exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img.getexif().items() if k in ExifTags.TAGS }
         datetime = exif_data['DateTime']
+        c_s_z = city.get() + ', ' + state.get() + ' ' + zip.get()
         
-        text = [datetime, street.get(), city.get(), state.get(), zip.get()]
+        text = [datetime, street.get(), c_s_z]
         y = 100
 
         img = cv.imread(image)
