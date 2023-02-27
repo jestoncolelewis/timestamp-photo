@@ -4,23 +4,32 @@ import os
 import tkinter as tk
 from tkinter import filedialog as fd
 
-# build window
+# build window with frames
 window = tk.Tk()
 window.title('Image Converter')
-window.resizable(False, False)
-window.geometry('300x200')
+address_frame = tk.Frame(window)
+s_frame = tk.Frame(address_frame)
+c_frame = tk.Frame(address_frame)
+st_frame = tk.Frame(address_frame)
+z_frame = tk.Frame(address_frame)
+button_frame = tk.Frame(window)
 
 # file browse and open and save
 def openfile():
     global images, path
     images = fd.askopenfilenames()
 images = ()
-open_button = tk.Button(window, text='OPEN', command=openfile)
+open_button = tk.Button(button_frame, text='OPEN', command=openfile)
 
-street = tk.Entry(window)
-city = tk.Entry(window)
-state = tk.Entry(window)
-zip = tk.Entry(window)
+# text entry
+s_label = tk.Label(s_frame, text='Street')
+street = tk.Entry(s_frame)
+c_label = tk.Label(c_frame, text='City')
+city = tk.Entry(c_frame)
+st_label = tk.Label(st_frame, text='State')
+state = tk.Entry(st_frame)
+z_label = tk.Label(z_frame, text='ZIP')
+zip = tk.Entry(z_frame)
 
 # process function
 def process():
@@ -45,13 +54,25 @@ def process():
         cv.imwrite(os.path.join(f"{path}/", new_name), img_text)
 
 # process action button
-process_button = tk.Button(text='PROCESS', command=process)
+process_button = tk.Button(button_frame, text='PROCESS', command=process)
 
-street.pack()
-city.pack()
-state.pack()
-zip.pack()
-open_button.pack()
-process_button.pack()
+s_label.pack(side='left')
+street.pack(side='right')
+c_label.pack(side='left')
+city.pack(side='right')
+st_label.pack(side='left')
+state.pack(side='right')
+z_label.pack(side='left')
+zip.pack(side='right')
+
+open_button.pack(side='left')
+process_button.pack(side='right')
+
+address_frame.pack()
+s_frame.pack()
+c_frame.pack()
+st_frame.pack()
+z_frame.pack()
+button_frame.pack()
 
 window.mainloop()
