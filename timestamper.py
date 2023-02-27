@@ -1,34 +1,42 @@
 from PIL import Image, ExifTags
 import cv2 as cv
 import os
-import glob
+import tkinter as tk
+from tkinter import filedialog as fd
 
-path = os.getcwd()
+# build window
+window = tk.Tk()
+window.title('Image Converter')
+window.resizable(False, False)
+window.geometry('300x200')
 
-while True:
-        if os.path.exists("./input") is True:
-            break
-        else:
-            os.mkdir("./input")
+# file browse and open and save
+def openfile():
+    global images, path
+    images = fd.askopenfilenames()
+images = ()
+open_button = tk.Button(window, text='OPEN', command=openfile)
+open_button.pack()
 
-while True:
-        if os.path.exists("./output") is True:
-            break
-        else:
-            os.mkdir("./output")
+def process():
+    path = fd.askdirectory()
+    for image in images:
+        exif_img = Image.open(image)
+        exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img.getexif().items() if k in ExifTags.TAGS }
+        datetime = exif_data['DateTime']
+        
 
-images = glob.glob("input/*")
+        img = cv.imread(image)
+        img_name = image[:]
+        name_l = image.rfind('/')
+        img_name = image[name_l+1:]
+        img_text = cv.putText(img, datetime, (10, 100), cv.FONT_HERSHEY_SIMPLEX, 3, (255, 255, 255), 5)
 
+        new_name = f"ts_{img_name}"
+        cv.imwrite(os.path.join(f"{path}/", new_name), img_text)
 
-for image in images:
-    exif_img = Image.open(image)
-    exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img.getexif().items() if k in ExifTags.TAGS }
-    datetime = exif_data['DateTime']
-    
+# process action button
+process_button = tk.Button(text='PROCESS', command=process)
+process_button.pack()
 
-    img = cv.imread(image)
-    img_name = image[len("input/") :]
-    img_text = cv.putText(img, datetime, (10, 100), cv.FONT_HERSHEY_SIMPLEX, 3, (255, 255, 255), 5)
-
-    new_name = f"ts_{img_name}"
-    cv.imwrite(os.path.join(f"{path}/output", new_name), img_text)
+window.mainloop()
