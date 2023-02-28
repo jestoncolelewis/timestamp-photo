@@ -15,6 +15,7 @@
 *.DS_Store
 /input
 /output
+/Timestamper
 
 # Mono auto generated files
 mono_crash.*
