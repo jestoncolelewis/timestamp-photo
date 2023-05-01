@@ -14,7 +14,7 @@ st_frame = tk.Frame(address_frame)
 z_frame = tk.Frame(address_frame)
 button_frame = tk.Frame(window)
 
-# file browse and open and save
+# file browse and open
 def openfile():
     global images, path
     images = fd.askopenfilenames()
@@ -32,7 +32,7 @@ z_label = tk.Label(z_frame, text='ZIP')
 zip = tk.Entry(z_frame)
 
 # process function
-def process():
+def save():
     path = fd.askdirectory()
     for image in images:
         exif_img = Image.open(image)
@@ -52,10 +52,10 @@ def process():
             y += 105
 
         new_name = f"ts_{img_name}"
-        cv.imwrite(os.path.join(f"{path}/", new_name), img_text)
+        cv.imwrite(os.path.join(f"{path}/", new_name), img_text) #type: ignore
 
 # process action button
-process_button = tk.Button(button_frame, text='PROCESS', command=process)
+process_button = tk.Button(button_frame, text='SAVE', command=save)
 
 s_label.pack(side='left')
 street.pack(side='right')
