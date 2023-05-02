@@ -1,41 +1,48 @@
-from PIL import Image, ExifTags
+from PIL import Image as Img
+from PIL import ExifTags
 import cv2 as cv
 import os
-import tkinter as tk
+import tkinter as ttk
 from tkinter import filedialog as fd
+from tkinter import *
+from tkinter import ttk
 
 # build window with frames
-window = tk.Tk()
-window.title('Image Converter')
-address_frame = tk.Frame(window)
-s_frame = tk.Frame(address_frame)
-c_frame = tk.Frame(address_frame)
-st_frame = tk.Frame(address_frame)
-z_frame = tk.Frame(address_frame)
-button_frame = tk.Frame(window)
+window = Tk()
+window.title('Timestamper')
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+mainframe = ttk.Frame(window, padding='3 3 12 12')
+mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 
 # file browse and open
 def openfile():
     global images, path
     images = fd.askopenfilenames()
 images = ()
-open_button = tk.Button(button_frame, text='OPEN', command=openfile)
+open_button = ttk.Button(mainframe, text='OPEN', command=openfile).grid(column=2, row=5)
 
 # text entry
-s_label = tk.Label(s_frame, text='Street')
-street = tk.Entry(s_frame)
-c_label = tk.Label(c_frame, text='City')
-city = tk.Entry(c_frame)
-st_label = tk.Label(st_frame, text='State')
-state = tk.Entry(st_frame)
-z_label = tk.Label(z_frame, text='ZIP')
-zip = tk.Entry(z_frame)
+street = StringVar()
+city = StringVar()
+state = StringVar()
+zip = StringVar()
+street_ent = ttk.Entry(mainframe, textvariable=street).grid(column=1, row=1)
+city_ent = ttk.Entry(mainframe, textvariable=city).grid(column=1, row=2)
+state_ent = ttk.Entry(mainframe, textvariable=state).grid(column=1, row=3)
+zip_ent = ttk.Entry(mainframe, textvariable=zip).grid(column=1, row=4)
 
-# process function
+# labels
+ttk.Label(mainframe, text='Street').grid(column=2, row=1, sticky=W)
+ttk.Label(mainframe, text='City').grid(column=2, row=2, sticky=W)
+ttk.Label(mainframe, text='State').grid(column=2, row=3, sticky=W)
+ttk.Label(mainframe, text='ZIP').grid(column=2, row=4, sticky=W)
+
+# save function
 def save():
     path = fd.askdirectory()
     for image in images:
-        exif_img = Image.open(image)
+        exif_img = Img.open(image)
         exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img.getexif().items() if k in ExifTags.TAGS }
         
         datetime = exif_data['DateTime']
@@ -55,25 +62,6 @@ def save():
         cv.imwrite(os.path.join(f"{path}/", new_name), img_text) #type: ignore
 
 # process action button
-process_button = tk.Button(button_frame, text='SAVE', command=save)
-
-s_label.pack(side='left')
-street.pack(side='right')
-c_label.pack(side='left')
-city.pack(side='right')
-st_label.pack(side='left')
-state.pack(side='right')
-z_label.pack(side='left')
-zip.pack(side='right')
-
-open_button.pack(side='left')
-process_button.pack(side='right')
-
-address_frame.pack()
-s_frame.pack()
-c_frame.pack()
-st_frame.pack()
-z_frame.pack()
-button_frame.pack()
+save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=5)
 
 window.mainloop()
