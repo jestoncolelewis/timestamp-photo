@@ -27,10 +27,14 @@ street = StringVar()
 city = StringVar()
 state = StringVar()
 zip = StringVar()
-street_ent = ttk.Entry(mainframe, textvariable=street).grid(column=1, row=1)
-city_ent = ttk.Entry(mainframe, textvariable=city).grid(column=1, row=2)
-state_ent = ttk.Entry(mainframe, textvariable=state).grid(column=1, row=3)
-zip_ent = ttk.Entry(mainframe, textvariable=zip).grid(column=1, row=4)
+street_ent = ttk.Entry(mainframe, textvariable=street)
+street_ent.grid(column=1, row=1)
+city_ent = ttk.Entry(mainframe, textvariable=city)
+city_ent.grid(column=1, row=2)
+state_ent = ttk.Entry(mainframe, textvariable=state)
+state_ent.grid(column=1, row=3)
+zip_ent = ttk.Entry(mainframe, textvariable=zip)
+zip_ent.grid(column=1, row=4)
 
 # labels
 ttk.Label(mainframe, text='Street').grid(column=2, row=1, sticky=W)
@@ -64,4 +68,5 @@ def save():
 # process action button
 save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=5)
 
+street_ent.focus()
 window.mainloop()
