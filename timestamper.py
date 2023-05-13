@@ -8,7 +8,8 @@ from tkinter import (
     filedialog as fd,
     ttk,
     StringVar,
-    Tk
+    Tk,
+    Listbox
 )
 
 # build window with frames
@@ -17,7 +18,9 @@ window.title('Timestamper')
 window.columnconfigure(0, weight=1)
 window.rowconfigure(0, weight=1)
 mainframe = ttk.Frame(window, padding='3 3 12 12')
-mainframe.grid(column=0, row=0) # type: ignore
+mainframe.grid(column=0, row=0)
+errorframe = ttk.Frame(window, padding='3 3 12 12')
+errorframe.grid(column=4, row=0)
 
 # file browse and open
 def openfile():
@@ -45,6 +48,10 @@ ttk.Label(mainframe, text='Street').grid(column=2, row=1, sticky='W')
 ttk.Label(mainframe, text='City').grid(column=2, row=2, sticky='W')
 ttk.Label(mainframe, text='State').grid(column=2, row=3, sticky='W')
 ttk.Label(mainframe, text='ZIP').grid(column=2, row=4, sticky='W')
+
+# error display
+errors = Listbox(errorframe, height=8)
+errors.grid(column=4, row=0, sticky='N')
 
 # save function
 def save():
