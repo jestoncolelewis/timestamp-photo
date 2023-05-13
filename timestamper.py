@@ -49,13 +49,11 @@ ttk.Label(mainframe, text='City').grid(column=2, row=2, sticky='W')
 ttk.Label(mainframe, text='State').grid(column=2, row=3, sticky='W')
 ttk.Label(mainframe, text='ZIP').grid(column=2, row=4, sticky='W')
 
-# error display
-errors = Listbox(errorframe, height=8)
-errors.grid(column=4, row=0, sticky='N')
-
 # save function
 def save():
     path = fd.askdirectory()
+    errors = []
+    evar = StringVar(value=errors)
     for image in images:
         try:
             exif_img = Img.open(image)
@@ -76,10 +74,14 @@ def save():
 
             new_name = f"ts_{img_name}"
             cv.imwrite(os.path.join(f"{path}/", new_name), img_text) #type: ignore
-        except KeyError as err:
+        except KeyError:
+            # error display
+            error_box = Listbox(errorframe, height=8, listvariable=evar)
+            error_box.grid(column=4, row=1, sticky='N')
             name_l = image.rfind('/')
             img_name = image[name_l+1:]
-            print('No date/time data for {}'.format(img_name))
+            errors.append('No date/time data for {}'.format(img_name))
+            evar.set(errors)
 
 # process action button
 save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=5)
