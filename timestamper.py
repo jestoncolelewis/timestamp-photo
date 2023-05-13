@@ -4,12 +4,12 @@ from PIL import (
 )
 import cv2 as cv
 import os
-import tkinter as ttk
 from tkinter import (
     filedialog as fd,
-    ttk
+    ttk,
+    StringVar,
+    Tk
 )
-from tkinter import * # type: ignore
 
 # build window with frames
 window = Tk()
