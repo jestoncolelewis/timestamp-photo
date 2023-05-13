@@ -1,11 +1,15 @@
-from PIL import Image as Img
-from PIL import ExifTags
+from PIL import (
+    Image as Img,
+    ExifTags
+)
 import cv2 as cv
 import os
 import tkinter as ttk
-from tkinter import filedialog as fd
+from tkinter import (
+    filedialog as fd,
+    ttk
+)
 from tkinter import * # type: ignore
-from tkinter import ttk
 
 # build window with frames
 window = Tk()
