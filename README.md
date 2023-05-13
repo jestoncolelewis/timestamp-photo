@@ -12,7 +12,7 @@ Please contact me for executables
 
 ## Future
 - [x] Update UI 
-- [ ] Check file has meta data
+- [x] Check file has meta data
 - [ ] Click and drag for where to put text
 - [ ] Error handling
 - [ ] GPS for location data
