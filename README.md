@@ -11,9 +11,9 @@ Can work on multiple files.
 Please contact me for executables
 
 ## Future
-- Update UI
-- Check file has meta data
-- Click and drag for where to put text
-- Error handling
-- GPS for location data
-- Publish to App stores and website for purchase
+- [x] Update UI 
+- [ ] Check file has meta data
+- [ ] Click and drag for where to put text
+- [ ] Error handling
+- [ ] GPS for location data
+- [ ] Publish to App stores and website for purchase
