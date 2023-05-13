@@ -21,7 +21,7 @@ mainframe.grid(column=0, row=0, sticky=(N, W, E, S)) # type: ignore
 
 # file browse and open
 def openfile():
-    global images, path
+    global images
     images = fd.askopenfilenames()
 images = ()
 open_button = ttk.Button(mainframe, text='OPEN', command=openfile).grid(column=2, row=5)
