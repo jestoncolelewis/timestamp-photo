@@ -50,24 +50,29 @@ ttk.Label(mainframe, text='ZIP').grid(column=2, row=4, sticky='W')
 def save():
     path = fd.askdirectory()
     for image in images:
-        exif_img = Img.open(image)
-        exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img.getexif().items() if k in ExifTags.TAGS }
-        
-        datetime = exif_data['DateTime']
-        c_s_z = city.get() + ', ' + state.get() + ' ' + zip.get()  
-        text = [datetime, street.get(), c_s_z]
-        y = 100
+        try:
+            exif_img = Img.open(image)
+            exif_data = { ExifTags.TAGS[k]: v for k, v in exif_img.getexif().items() if k in ExifTags.TAGS }
+            
+            datetime = exif_data['DateTime']
+            c_s_z = city.get() + ', ' + state.get() + ' ' + zip.get()  
+            text = [datetime, street.get(), c_s_z]
+            y = 100
 
-        img = cv.imread(image)
-        img_name = image[:]
-        name_l = image.rfind('/')
-        img_name = image[name_l+1:]
-        for i in text:
-            img_text = cv.putText(img, i, (10, y), cv.FONT_HERSHEY_SIMPLEX, 3, (255, 255, 255), 5)
-            y += 105
+            img = cv.imread(image)
+            img_name = image[:]
+            name_l = image.rfind('/')
+            img_name = image[name_l+1:]
+            for i in text:
+                img_text = cv.putText(img, i, (10, y), cv.FONT_HERSHEY_SIMPLEX, 3, (255, 255, 255), 5)
+                y += 105
 
-        new_name = f"ts_{img_name}"
-        cv.imwrite(os.path.join(f"{path}/", new_name), img_text) #type: ignore
+            new_name = f"ts_{img_name}"
+            cv.imwrite(os.path.join(f"{path}/", new_name), img_text) #type: ignore
+        except KeyError as err:
+            name_l = image.rfind('/')
+            img_name = image[name_l+1:]
+            print('No date/time data for {}'.format(img_name))
 
 # process action button
 save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=5)
