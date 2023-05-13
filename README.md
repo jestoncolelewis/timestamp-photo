@@ -13,7 +13,7 @@ Please contact me for executables
 ## Future
 - [x] Update UI 
 - [x] Check file has meta data
-- [ ] Click and drag for where to put text
+- [ ] Select text location
 - [ ] Error handling
 - [ ] GPS for location data
 - [ ] Publish to App stores and website for purchase
