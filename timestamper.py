@@ -27,7 +27,7 @@ def openfile():
     global images
     images = fd.askopenfilenames()
 images = ()
-open_button = ttk.Button(mainframe, text='OPEN', command=openfile).grid(column=2, row=5)
+open_button = ttk.Button(mainframe, text='OPEN', command=openfile).grid(column=2, row=7)
 
 # text entry
 street = StringVar()
@@ -65,7 +65,6 @@ def save():
             y = 100
 
             img = cv.imread(image)
-            img_name = image[:]
             name_l = image.rfind('/')
             img_name = image[name_l+1:]
             for i in text:
@@ -84,7 +83,7 @@ def save():
             evar.set(errors) #type: ignore
 
 # process action button
-save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=5)
+save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=7)
 
 street_ent.focus()
 window.mainloop()
