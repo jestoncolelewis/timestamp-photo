@@ -12,42 +12,11 @@ from tkinter import (
     Listbox
 )
 
-# build window with frames
-window = Tk()
-window.title('Timestamper')
-window.columnconfigure(0, weight=1)
-window.rowconfigure(0, weight=1)
-mainframe = ttk.Frame(window, padding='3 3 12 12')
-mainframe.grid(column=0, row=0)
-errorframe = ttk.Frame(window, padding='3 3 12 12')
-errorframe.grid(column=4, row=0)
-
 # file browse and open
 def openfile():
     global images
     images = fd.askopenfilenames()
 images = ()
-open_button = ttk.Button(mainframe, text='OPEN', command=openfile).grid(column=2, row=7)
-
-# text entry
-street = StringVar()
-city = StringVar()
-state = StringVar()
-zip = StringVar()
-street_ent = ttk.Entry(mainframe, textvariable=street)
-street_ent.grid(column=1, row=1)
-city_ent = ttk.Entry(mainframe, textvariable=city)
-city_ent.grid(column=1, row=2)
-state_ent = ttk.Entry(mainframe, textvariable=state)
-state_ent.grid(column=1, row=3)
-zip_ent = ttk.Entry(mainframe, textvariable=zip)
-zip_ent.grid(column=1, row=4)
-
-# labels
-ttk.Label(mainframe, text='Street').grid(column=2, row=1, sticky='W')
-ttk.Label(mainframe, text='City').grid(column=2, row=2, sticky='W')
-ttk.Label(mainframe, text='State').grid(column=2, row=3, sticky='W')
-ttk.Label(mainframe, text='ZIP').grid(column=2, row=4, sticky='W')
 
 # save function
 def save():
@@ -82,7 +51,38 @@ def save():
             errors.append('No date/time data for {}'.format(img_name))
             evar.set(errors) #type: ignore
 
-# process action button
+# build window with frames
+window = Tk()
+window.title('Timestamper')
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+mainframe = ttk.Frame(window, padding='3 3 12 12')
+mainframe.grid(column=0, row=0)
+errorframe = ttk.Frame(window, padding='3 3 12 12')
+errorframe.grid(column=4, row=0)
+
+# text entry
+street = StringVar()
+city = StringVar()
+state = StringVar()
+zip = StringVar()
+street_ent = ttk.Entry(mainframe, textvariable=street)
+street_ent.grid(column=1, row=1)
+city_ent = ttk.Entry(mainframe, textvariable=city)
+city_ent.grid(column=1, row=2)
+state_ent = ttk.Entry(mainframe, textvariable=state)
+state_ent.grid(column=1, row=3)
+zip_ent = ttk.Entry(mainframe, textvariable=zip)
+zip_ent.grid(column=1, row=4)
+
+# labels
+ttk.Label(mainframe, text='Street').grid(column=2, row=1, sticky='W')
+ttk.Label(mainframe, text='City').grid(column=2, row=2, sticky='W')
+ttk.Label(mainframe, text='State').grid(column=2, row=3, sticky='W')
+ttk.Label(mainframe, text='ZIP').grid(column=2, row=4, sticky='W')
+
+# buttons
+open_button = ttk.Button(mainframe, text='OPEN', command=openfile).grid(column=2, row=7)
 save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=7)
 
 street_ent.focus()
