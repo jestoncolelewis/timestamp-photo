@@ -53,7 +53,7 @@ ttk.Label(mainframe, text='ZIP').grid(column=2, row=4, sticky='W')
 def save():
     path = fd.askdirectory()
     errors = []
-    evar = StringVar(value=errors)
+    evar = StringVar(value=errors) #type: ignore
     for image in images:
         try:
             exif_img = Img.open(image)
@@ -81,7 +81,7 @@ def save():
             name_l = image.rfind('/')
             img_name = image[name_l+1:]
             errors.append('No date/time data for {}'.format(img_name))
-            evar.set(errors)
+            evar.set(errors) #type: ignore
 
 # process action button
 save_button = ttk.Button(mainframe, text='SAVE', command=save).grid(column=3, row=5)
