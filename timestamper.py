@@ -8,6 +8,7 @@ from tkinter import (
     filedialog as fd,
     ttk,
     StringVar,
+    IntVar,
     Tk,
     Listbox
 )
@@ -31,13 +32,31 @@ def save():
             datetime = exif_data['DateTime']
             c_s_z = city.get() + ', ' + state.get() + ' ' + zip.get()  
             text = [datetime, street.get(), c_s_z]
-            y = 100
 
             img = cv.imread(image)
             name_l = image.rfind('/')
             img_name = image[name_l+1:]
+
+            h = img.shape[0]
+            w = img.shape[1]
+
+            x = 0
+            y = 0
+            if var.get() == 1: # top left
+                x = 10
+                y = 100
+            if var.get() == 2: # top right
+                x = 10 #TODO
+                y = 100
+            if var.get() == 3: # bottom left
+                x = 10
+                y = h - 230
+            if var.get() == 4: # bottom right
+                x = w - 10 #TODO
+                y = h - 230
+            
             for i in text:
-                img_text = cv.putText(img, i, (10, y), cv.FONT_HERSHEY_SIMPLEX, 3, (255, 255, 255), 5)
+                img_text = cv.putText(img, i, (x, y), cv.FONT_HERSHEY_SIMPLEX, 3, (255, 255, 255), 5)
                 y += 105
 
             new_name = f"ts_{img_name}"
@@ -78,7 +97,7 @@ zip_ent = ttk.Entry(mainframe, textvariable=zip)
 zip_ent.grid(column=1, row=4)
 
 # locations
-var = StringVar()
+var = IntVar()
 top_left = ttk.Radiobutton(locations, text='Top Left', variable=var, value=1)
 top_left.grid(column=3, row=0, sticky='W')
 top_right = ttk.Radiobutton(locations, text='Top Right', variable=var, value=2)
