@@ -58,8 +58,10 @@ window.columnconfigure(0, weight=1)
 window.rowconfigure(0, weight=1)
 mainframe = ttk.Frame(window, padding='3 3 12 12')
 mainframe.grid(column=0, row=0)
+locations = ttk.Frame(window)
+locations.grid(column=2, row=0)
 errorframe = ttk.Frame(window, padding='3 3 12 12')
-errorframe.grid(column=4, row=0)
+errorframe.grid(column=6, row=0)
 
 # text entry
 street = StringVar()
@@ -74,6 +76,17 @@ state_ent = ttk.Entry(mainframe, textvariable=state)
 state_ent.grid(column=1, row=3)
 zip_ent = ttk.Entry(mainframe, textvariable=zip)
 zip_ent.grid(column=1, row=4)
+
+# locations
+var = StringVar()
+top_left = ttk.Radiobutton(locations, text='Top Left', variable=var, value=1)
+top_left.grid(column=3, row=0, sticky='W')
+top_right = ttk.Radiobutton(locations, text='Top Right', variable=var, value=2)
+top_right.grid(column=4, row=0, sticky='W')
+bottom_left = ttk.Radiobutton(locations, text='Bottom Left', variable=var, value=3)
+bottom_left.grid(column=3, row=1, sticky='W')
+bottom_right = ttk.Radiobutton(locations, text='Bottom Right', variable=var, value=4)
+bottom_right.grid(column=4, row=1, sticky='W')
 
 # labels
 ttk.Label(mainframe, text='Street').grid(column=2, row=1, sticky='W')
