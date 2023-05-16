@@ -42,22 +42,24 @@ def save():
 
             x = 0
             y = 0
-            if var.get() == 1: # top left
-                x = 10
-                y = 100
-            if var.get() == 2: # top right
-                x = 10 #TODO
-                y = 100
-            if var.get() == 3: # bottom left
-                x = 10
-                y = h - 230
-            if var.get() == 4: # bottom right
-                x = w - 10 #TODO
-                y = h - 230
-            
+            n = 0
+
             for i in text:
+                offset = cv.getTextSize(i, cv.FONT_HERSHEY_SIMPLEX, 3, 5)[0][0]
+                if var.get() == 1: # top left
+                    x = 10
+                    y = 100 + n
+                if var.get() == 2: # top right
+                    x = w - offset
+                    y = 100 + n
+                if var.get() == 3: # bottom left
+                    x = 10
+                    y = h - 230 + n
+                if var.get() == 4: # bottom right
+                    x = w - offset
+                    y = h - 230 + n
                 img_text = cv.putText(img, i, (x, y), cv.FONT_HERSHEY_SIMPLEX, 3, (255, 255, 255), 5)
-                y += 105
+                n += 105
 
             new_name = f"ts_{img_name}"
             cv.imwrite(os.path.join(f"{path}/", new_name), img_text) #type: ignore
