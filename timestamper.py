@@ -1,6 +1,7 @@
 from PIL import (
     Image as Img,
-    ExifTags
+    ExifTags,
+    ImageTk
 )
 import cv2 as cv
 import os
@@ -102,13 +103,17 @@ zip_ent.grid(column=1, row=4)
 
 # locations
 var = IntVar()
-top_left = ttk.Radiobutton(locations, text='Top Left', variable=var, value=1)
+upleft = ImageTk.PhotoImage(Img.open('./upleft.png'))
+top_left = ttk.Radiobutton(locations, variable=var, value=1, image=upleft, padding='1')
 top_left.grid(column=0, row=0, sticky='W')
-top_right = ttk.Radiobutton(locations, text='Top Right', variable=var, value=2)
+upright = ImageTk.PhotoImage(Img.open('./upright.png'))
+top_right = ttk.Radiobutton(locations, variable=var, value=2, image=upright, padding='1')
 top_right.grid(column=1, row=0, sticky='W')
-bottom_left = ttk.Radiobutton(locations, text='Bottom Left', variable=var, value=3)
+botleft = ImageTk.PhotoImage(Img.open('./botleft.png'))
+bottom_left = ttk.Radiobutton(locations, variable=var, value=3, image=botleft, padding='1')
 bottom_left.grid(column=0, row=1, sticky='W')
-bottom_right = ttk.Radiobutton(locations, text='Bottom Right', variable=var, value=4)
+botright = ImageTk.PhotoImage(Img.open('./botright.png'))
+bottom_right = ttk.Radiobutton(locations, variable=var, value=4, image=botright, padding='1')
 bottom_right.grid(column=1, row=1, sticky='W')
 
 # labels

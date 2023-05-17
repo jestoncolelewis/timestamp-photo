@@ -12,6 +12,7 @@
 
 /timestamp_env
 /.vscode
+*.afdesign
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
