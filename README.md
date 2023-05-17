@@ -14,6 +14,7 @@ Please contact me for executables
 - [x] Update UI 
 - [x] Check file has meta data
 - [ ] Select text location
-- [ ] Error handling
+- [ ] Error handling (wrong file type)
+- [ ] Preview
 - [ ] GPS for location data
 - [ ] Publish to App stores and website for purchase
