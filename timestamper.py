@@ -18,7 +18,6 @@ from tkinter import (
 def openfile():
     global images
     images = fd.askopenfilenames()
-images = ()
 
 # save function
 def save():
